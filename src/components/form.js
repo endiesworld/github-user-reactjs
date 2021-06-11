@@ -1,12 +1,17 @@
 import React, { useState } from "react" ;
+import axios from "axios" ;
 
 
-const handleSubmit = (event) => {
-  event.preventDefault()
-  alert("test")
-}
 
-const Form = (props) => {
+
+const Form = ({setNewUser}) => {
+    const handleSubmit = (event) => {
+    event.preventDefault()
+    axios.get(`https://api.github.com/users/${username}`).then((resp) => {
+        setNewUser(resp.data)
+        setUsername("")
+        })
+    }
     const [username, setUsername] = useState("") ;
     return (
     <form className="w-full max-w-sm mx-auto" onSubmit = {handleSubmit}>
